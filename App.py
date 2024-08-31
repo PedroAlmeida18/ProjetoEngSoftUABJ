@@ -13,13 +13,15 @@
 
 from fastapi import FastAPI
 from utils import cores, objetivos
+import random
 
 app = FastAPI()
 
 
 @app.get("/")
 async def root():
-    return {"Mensagem": "Bem-vindo ao jogo war"}
+    return {"Mensagem": "Bem-vindo ao jogo war, Você precisa escolher a cor do Exercito",
+            "Cor do Exército" : "Azul, Branca, Vermelha, Preta, Amarela, Verde"}
 
 
 @app.get("/escolher-cor/{cor}")
@@ -29,8 +31,11 @@ async def escolher_cor(cor):
                 "Cor": cores[int(cor)],
             }
 
-async def receber_objetivo():
+@app.get("/ReceberObjetivo/")
+async def ReceberObjetivo():
+    objetivo=random.choice(objetivos)
     return {
-                "Mensagem": "Você receberu um objetivo", 
-                
+                "Mensagem": "Você recebeu o objetivo", 
+                "Objetivo":  objetivo["Objetivos"]
             }
+
