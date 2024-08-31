@@ -28,3 +28,9 @@ async def escolher_cor(cor):
                 "Mensagem": "Você escolheu a cor", 
                 "Cor": cores[int(cor)],
             }
+
+async def receber_objetivo():
+    return {
+                "Mensagem": "Você receberu um objetivo", 
+                
+            }
