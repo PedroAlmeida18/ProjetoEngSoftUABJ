@@ -21,7 +21,8 @@ app = FastAPI()
 @app.get("/")
 async def root():
     return {"Mensagem": "Bem-vindo ao jogo war, Você precisa escolher a cor do Exercito",
-            "Cor do Exército" : "Azul, Branca, Vermelha, Preta, Amarela, Verde"}
+            "Cor do Exército" : "1-Azul, 2-Branca, 3-Vermelha, 4-Preta, 5-Amarela, 6-Verde",
+            "Mensagem ": "Para seguir o jogo altere a rota para /escolher-cor/numero da sua cor"}
 
 
 @app.get("/escolher-cor/{cor}")
@@ -29,6 +30,7 @@ async def escolher_cor(cor):
     return {
                 "Mensagem": "Você escolheu a cor", 
                 "Cor": cores[int(cor)],
+                "Mensagem ": "Após a cor desejada selecionada mude a rota para ReceberObjetivo e receba o obejtivo no jogo"
             }
 
 @app.get("/ReceberObjetivo/")
