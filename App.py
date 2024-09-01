@@ -12,38 +12,31 @@
 #Quais recursos : Jogo War
 
 from fastapi import FastAPI
-from utils import cores, objetivos, territorios
+from cor import cores, escolha_cor
+from territorio import receber_carta_território
+from objetivos import escolher_objetivo_aleatorio
+from exercito import receber_exercito_inicial, colocar_exercito
 import random
 
 app = FastAPI()
 
+territorios_recebido =[]
 
 @app.get("/")
 async def root():
-    return {
-        "Titulo": "Bem-vindo ao jogo war, Você precisa escolher a cor do Exercito",
-        "Cor do Exército" : "1-Azul, 2-Branca, 3-Vermelha, 4-Preta, 5-Amarela, 6-Verde",
-        "Mensagem ": "Para seguir o jogo altere a rota para /escolher-cor/numero da sua cor"
-    }
+    return {"Mensagem": "Bem-vindo ao jogo war, Você precisa escolher a cor do Exercito",
+            "Cor do Exército" : "1-Azul, 2-Branca, 3-Vermelha, 4-Preta, 5-Amarela, 6-Verde",
+            "Mensagem ": "Para seguir o jogo altere a rota para /escolher-cor/numero da sua cor"}
 
 
 @app.get("/escolher-cor/{cor}")
-async def escolher_cor(cor):
-    return {
-        "Titulo": "Você escolheu a cor", 
-        "Cor": cores[int(cor)-1],
-        "Mensagem ": "Após a cor desejada selecionada mude a rota para ReceberObjetivo e receba o obejtivo no jogo"
-    }
+async def escolher_cor(cor: int):
+    return escolha_cor(cor)
 
-
-@app.get("/ReceberObjetivo/")
-async def ReceberObjetivo():
-    objetivo=random.choice(objetivos)
-    return {
-        "Titulo": "Você recebeu o objetivo", 
-        "Objetivo":  objetivo["Objetivos"],
-        "Mensagem": "Para saber qual sua vez de jogar acesse a rota ordem-jogadores",
-    }
+    
+@app.get("/receber-objetivo/")
+async def Receber_objetivo():
+    return escolher_objetivo_aleatorio()
 
 
 @app.get("/ordem-jogadores/")
@@ -58,8 +51,12 @@ async def definir_ordem():
 
 @app.get("/meus-territorios")
 async def meus_territorios():
-    territorio = random.choice(territorios)
-    return {
-        "Titulo": f'Você recebeu o território',
-        "Territorio": territorio['Território'],
-    }
+    return receber_carta_território()
+
+@app.get("/recebe-exercitos")
+async def recebe_exercitos():
+    return receber_exercito_inicial()
+
+@app.get("/meus-territorios/{território}/{valor}")
+async def por_exercito(territorios: str, valor: int):
+    return colocar_exercito(territorios, valor)
