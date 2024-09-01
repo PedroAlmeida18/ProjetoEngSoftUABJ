@@ -12,8 +12,8 @@
 #Quais recursos : Jogo War
 
 from fastapi import FastAPI
-from utils import cores, objetivos
-import random
+from cor import cores, escolha_cor
+from objetivos import escolher_objetivo_aleatorio
 
 app = FastAPI()
 
@@ -26,18 +26,12 @@ async def root():
 
 
 @app.get("/escolher-cor/{cor}")
-async def escolher_cor(cor):
-    return {
-                "Mensagem": "Você escolheu a cor", 
-                "Cor": cores[int(cor)],
-                "Mensagem ": "Após a cor desejada selecionada mude a rota para ReceberObjetivo e receba o obejtivo no jogo"
-            }
+async def escolher_cor(cor: int):
+    return escolha_cor(cor)
+
+    
 
 @app.get("/ReceberObjetivo/")
 async def ReceberObjetivo():
-    objetivo=random.choice(objetivos)
-    return {
-                "Mensagem": "Você recebeu o objetivo", 
-                "Objetivo":  objetivo["Objetivos"]
-            }
+    return escolher_objetivo_aleatorio()
 
