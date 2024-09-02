@@ -7,7 +7,7 @@ exercito = [
 territorios_exercito = {}
 
 def receber_exercito_inicial():
-    return {"Mensagem": "Você recebeu 3 exercitos pequenosno valor de 1 cada",
+    return {"Mensagem": "Você recebeu 3 exercitos pequenos no valor de 1 cada",
             "Mensagem": "Escolha qual território vai colocá-los"
     }
 
