@@ -27,5 +27,5 @@ def escolher_objetivo_aleatorio():
         "Mensagem": "Você escolheu o objetivo",
         "Objetivo": objetivo_escolhido['Objetivos'],
         "Mensagem2": "O objetivo foi removido da lista de objetivos disponíveis.",
-        "Mensagem 3" : "Para continuar e descobrir a ordem dos jogadores vá para a rota : /ordem-jogadores/"
+        "Mensagem3" : "Para continuar e descobrir a ordem dos jogadores vá para a rota : /ordem-jogadores/"
     }

@@ -126,19 +126,42 @@ async def meus_territorios(numero_cor:int = Query(...)):
     território = receber_carta_território()
     return f"""
          <html>
-            <head></head>
+            <head>Parabéns você recebeu o território : </head>
             <body>
                 <h1>{território["Territorio"]}</h1>
+                <form action ="/recebe-exercitos" method="get">
+                <p> Digite seu id para receber seus exercitos </p>
+                    <input type="number"id="numero_cor" name="numero_cor" required>
+                    <button type="submit">Receber exercitos</button>
+                 </form>
            <button onclick="history.back()">Voltar</button>
          </body>
         </html>
    """
 
-@app.get("/recebe-exercitos")
-async def recebe_exercitos():
-    return receber_exercito_inicial()
+@app.get("/recebe-exercitos", response_class=HTMLResponse)
+async def recebe_exercitos(numero_cor:int= Query(...)):
+    exercito = receber_exercito_inicial()
+    return f"""
+            <html>
+            <head> </head>
+            <body>
+                <h2>{exercito["mensagem"]}</h2>
+                <form action ="/meus-territorios/" method="get">
+                    <p> Digite o nome do território que deseja colocar seu exercito</p>
+                    <input type="text"id="nome_territorio" name="nome_territorio" required>
+                    <p>Digite o valor do seu exercito</p>
+                    <input type="number"id="valor_exercito" name="valor_exercito" required>
+                    <button type="submit">Por exercito</button>
+                </form>
+           <button onclick="history.back()">Voltar</button>
+         </body>
+        </html>
+    """
 
-@app.get("/meus-territorios/{território}/{valor}")
-async def por_exercito(territorios: str, valor: int):
-    return colocar_exercito(territorios, valor)
+@app.get("/meus-territorios",response_class=HTMLResponse)
+async def por_exercito(nome_território:str =Query(...),valor_exercito:int=Query(...)):
+    
+    colocarEXERCITO = colocar_exercito(nome_território, valor_exercito)
+    return colocarEXERCITO
 

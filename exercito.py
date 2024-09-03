@@ -1,3 +1,4 @@
+import random
 
 exercito = [
     {'id': 1, 'exercito': "Pequeno", 'valor': 1},
@@ -7,8 +8,10 @@ exercito = [
 territorios_exercito = {}
 
 def receber_exercito_inicial():
-    return {"Mensagem": "Você recebeu 3 exercitos pequenos no valor de 1 cada",
-            "Mensagem": "Escolha qual território vai colocá-los"
+    exercitoInical= random.choice(exercito)
+    return {
+            "mensagem": f"Parabéns você recebeu 3 exercitos " + exercitoInical['exercito'] + " no valor de : " 
+            + str(exercitoInical['valor'])
     }
 
 def colocar_exercito(territorios: str, valor: int):
