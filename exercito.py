@@ -15,8 +15,6 @@ def receber_exercito_inicial():
     }
 
 def colocar_exercito(territorios: str, valor: int):
-    if valor <= 0:
-        return {'Menssgem': "Escolha um valor valido"}
     
     if territorios in territorios_exercito:
         territorios_exercito[territorios] += valor

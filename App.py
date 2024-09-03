@@ -147,11 +147,11 @@ async def recebe_exercitos(numero_cor:int= Query(...)):
             <head> </head>
             <body>
                 <h2>{exercito["mensagem"]}</h2>
-                <form action ="/meus-territorios/" method="get">
+                <form action ="/meus-territorios1" method="get">
                     <p> Digite o nome do território que deseja colocar seu exercito</p>
                     <input type="text"id="nome_territorio" name="nome_territorio" required>
                     <p>Digite o valor do seu exercito</p>
-                    <input type="number"id="valor_exercito" name="valor_exercito" required>
+                    <input type="number"id="valor_exercito" name="valor_exercito"min=1 required>
                     <button type="submit">Por exercito</button>
                 </form>
            <button onclick="history.back()">Voltar</button>
@@ -159,9 +159,15 @@ async def recebe_exercitos(numero_cor:int= Query(...)):
         </html>
     """
 
-@app.get("/meus-territorios",response_class=HTMLResponse)
-async def por_exercito(nome_território:str =Query(...),valor_exercito:int=Query(...)):
-    
-    colocarEXERCITO = colocar_exercito(nome_território, valor_exercito)
-    return colocarEXERCITO
-
+@app.get("/meus-territorios1",response_class=HTMLResponse)
+async def por_exercito(nome_territorio:str =Query(...),valor_exercito:int=Query(...)):
+    resultado = colocar_exercito(nome_territorio, valor_exercito)
+    return f"""
+        <html>
+            <head>Você colocou os exercitos no território: </head>
+            <body>
+                <h1>{resultado["Mensagem"]}</h1>
+           <button onclick="history.back()">Voltar</button>
+         </body>
+        </html>
+   """
